@@ -19,7 +19,7 @@ def driver_get():
     global pn
     # 初始化WebDriver（确保已安装对应的WebDriver）
     driver = webdriver.Chrome()  # 或者使用其他浏览器的WebDriver
-    driver.get(url = 'https://space.bilibili.com/299749695/video?tid=0&pn=' + str(pn) + '&keyword=&order=pubdate') # 此为要爬取的B站UP主的视频页，可根据实际情况更改'example'为UP主的UID
+    driver.get(url = 'https://space.bilibili.com/example/video?tid=0&pn=' + str(pn) + '&keyword=&order=pubdate') # 此为要爬取的B站UP主的视频页，可根据实际情况更改'example'为UP主的UID
 
     try:
         # 等待特定元素加载完成
