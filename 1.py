@@ -10,7 +10,7 @@ plt.rcParams['font.sans-serif'] = ['SimHei']  # 或者使用 'MS Gothic' 或其�
 plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
 
 # 初始化计数器
-pn1 = 6   # 此为要爬取的视频页数总量
+pn1 = 1   # 此为要爬取的视频页数总量
 pn = 1   # 起始视频页数
 play_count = []
 play_time = []
@@ -19,7 +19,7 @@ def driver_get():
     global pn
     # 初始化WebDriver（确保已安装对应的WebDriver）
     driver = webdriver.Chrome()  # 或者使用其他浏览器的WebDriver
-    driver.get(url = 'https://space.bilibili.com/example/video?tid=0&pn=' + str(pn) + '&keyword=&order=pubdate') # 此为要爬取的B站UP主的视频页，可根据实际情况更改'example'为UP主的UID
+    driver.get(url = 'https://space.bilibili.com/299749695/video?tid=0&pn=' + str(pn) + '&keyword=&order=pubdate') # 此为要爬取的B站UP主的视频页，可根据实际情况更改'example'为UP主的UID
 
     try:
         # 等待特定元素加载完成
@@ -56,14 +56,13 @@ def driver_get():
         pn += 1
 for i in range(pn1):
     driver_get()
-# 按照从以前到现在的顺序重新排列，以便绘制统计图，想要从现在到以前直接注释掉后更改绘制统计图的代码参数便可
-sorted_indices = sorted(range(len(play_time)), key=lambda i: play_time[i])
-play_time_sorted = [play_time[i] for i in sorted_indices]
-play_count_sorted = [play_count[i] for i in sorted_indices]
+# 逆序排列数据
+play_time.reverse()
+play_count.reverse()
 
 # 绘制统计图
 plt.figure(figsize=(10, 5))
-plt.plot(play_time_sorted, play_count_sorted, marker='o', linestyle='-', color='b')
+plt.plot(play_time, play_count, marker='o', linestyle='-', color='b')
 plt.xlabel('发布时间')
 plt.ylabel('播放量')
 plt.title('视频播放量随发布时间的变化统计图')
